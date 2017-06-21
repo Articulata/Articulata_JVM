@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.guava:guava:22.0'
+    compile 'org.lwjgl:lwjgl:3.1.2'
+    compile 'io.netty:netty-all:4.1.12.Final'
+    testCompile 'junit:junit:4.12'
+}
+
+mainClassName = 'Articulata'
+
+def IDEA_BUILD_DIR = 'build'
+new File(IDEA_BUILD_DIR).mkdirs()
+
+idea {
+    module {
+        name = 'Articulata'
+        outputDir = file(IDEA_BUILD_DIR)
+        testOutputDir = file(IDEA_BUILD_DIR)
+        excludeDirs += file('build')
+    }
+
+    project {
+        ipr.withXml {
+            xmlFile ->
+                xmlFile.asNode().component.find { it.@name == 'VcsDirectoryMappings' }.replaceNode {
+                    component(name: 'VcsDirectoryMappings') {
+                        mapping(directory: "", vcs: "")
+                        mapping(directory: "\$PROJECT_DIR\$", vcs: 'Git')
+                    }
+                }
+                xmlFile.asNode().component.find { it.@name == 'ProjectRootManager' }['output'][0].replaceNode {
+                    output(url: "file://\$PROJECT_DIR\$/$IDEA_BUILD_DIR/out")
+                }
+
+
+        }
+    }
+}
