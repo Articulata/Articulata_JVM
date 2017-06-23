@@ -1,0 +1,4 @@
+@ParametersAreNonnullByDefault
+package com.articulatagame;
+
+import javax.annotation.ParametersAreNonnullByDefault;
