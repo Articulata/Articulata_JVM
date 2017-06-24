@@ -18,7 +18,7 @@ public class Articulata {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private long window;
-    private GameStateMain gameState = new GameStateMain();
+    private GameStateMain gameState;
     private boolean initialized;
 
     public static void main(String[] args) {
@@ -33,13 +33,9 @@ public class Articulata {
 
     private void initWindow() {
         GLFWErrorCallback.createPrint(System.err).set();
-
         if (!glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW");
-
         glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
         window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL);
         if (window == NULL)
@@ -69,31 +65,30 @@ public class Articulata {
             glfwMakeContextCurrent(window);
             glfwSwapInterval(1);
 
+
             glfwShowWindow(window);
         }
     }
 
     private void loop() {
         createCapabilities();
-
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0, 12, 12, 0, 1, -1);
-        glClearColor(0, 0.7f, 1, 0);
-        glMatrixMode(GL_MODELVIEW);
+        gameState = new GameStateMain();
+        glEnable(GL_DEPTH_TEST);
         glShadeModel(GL_SMOOTH);
-        glFrontFace(GL_CCW);
         glEnable(GL_COLOR_MATERIAL);
-        glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+        glViewport(0, 0, WIDTH, HEIGHT);
+        glTranslatef(0.0f, 0.0f, -1.0f);
+        glClearColor(255, 255, 255, 255);
 
-        glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+        glOrtho(0.0, WIDTH, 0.0, HEIGHT, -10.0, 10.0);
+        glMatrixMode(GL_MODELVIEW);
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glfwPollEvents();
             gameState.update();
             gameState.render(WIDTH, HEIGHT);
             glfwSwapBuffers(window);
-            glfwPollEvents();
-
         }
     }
 

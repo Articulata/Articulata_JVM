@@ -4,84 +4,60 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class ModelCube extends Model {
 
-    private float[][] vertices;
-    private float angle1 = 0.0f;
-    private float angle2 = 0.0f;
-    private int[][] indices;
+    float angle = 2;
+
+    float[][] vertsZ = {
+            {-0.5f, 0.5f, -0.5f}, /* 0 left top rear */
+            {0.5f, 0.5f, -0.5f},   /* 1 right top rear */
+            {0.5f, -0.5f, -0.5f},   /* 2 right bottom rear */
+            {-0.5f, -0.5f, -0.5f},   /* 3 left bottom rear */
+            {-0.5f, 0.5f, 0.5f},   /* 4 left top front */
+            {0.5f, 0.5f, 0.5f},   /* 5 right top front */
+            {0.5f, -0.5f, 0.5f},   /* 6 right bottom front */
+            {-0.5f, -0.5f, 0.5f}    /* 7 left bottom front */
+    };
+
+    int[][] facesZ = {
+            {7, 6, 5, 4},
+            {6, 2, 1, 5},
+            {3, 7, 4, 0},
+            {5, 1, 0, 4},
+            {7, 6, 2, 3},
+            {2, 3, 0, 1}
+    };
+
+    int[][] colors = {
+            {255, 0, 0},
+            {0, 255, 0},
+            {0, 0, 255},
+            {255, 0, 255},
+            {125, 255, 0},
+            {0, 125, 255}
+    };
 
     public ModelCube() {
-        indices = new int[][] {
-                {5, 4},
-                {5, 0},
-
-                {4, 7},
-                {7, 0},
-
-                {6, 5},
-                {1, 0},
-
-                {3, 4},
-                {2, 7},
-
-                {6, 3},
-                {6, 1},
-
-                {3, 2},
-                {2, 1}
-        };
-        vertices = new float[][] {
-                {1.0f, 1.0f, 1.0f}, //0
-                {1.0f, 1.0f, -1.0f}, //1
-                {1.0f, -1.0f, -1.0f}, //2
-                {-1.0f, -1.0f, -1.0f}, //3
-                {-1.0f, -1.0f, 1.0f}, //4
-                {-1.0f, 1.0f, 1.0f}, //5
-                {-1.0f, 1.0f, -1.0f}, //6
-                {1.0f, -1.0f, 1.0f}  //7
-        };
 
     }
 
     @Override public void render(int x, int y, int z) {
         glLoadIdentity();
-        glTranslatef(0.5f, 0.0f, -0f);
-        glScalef(100, 100, 100);
-        glBegin(GL_QUADS);
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f(1.0f, 1.0f, -1.0f);
-        glVertex3f(-1.0f, 1.0f, -1.0f);
-        glVertex3f(-1.0f, 1.0f, 1.0f);
-        glVertex3f(1.0f, 1.0f, 1.0f);
 
-        glColor3f(1.0f, 0.5f, 0.0f);
-        glVertex3f(1.0f, -1.0f, 1.0f);
-        glVertex3f(-1.0f, -1.0f, 1.0f);
-        glVertex3f(-1.0f, -1.0f, -1.0f);
-        glVertex3f(1.0f, -1.0f, -1.0f);
+        glRotated(angle, 0, 1, 0);
+        glRotated(angle / 2, 1, 0, 0);
+        angle += 0.5;
+        for (int face = 0; face < 6; face++) {
 
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex3f(1.0f, 1.0f, 1.0f);
-        glVertex3f(-1.0f, 1.0f, 1.0f);
-        glVertex3f(-1.0f, -1.0f, 1.0f);
-        glVertex3f(1.0f, -1.0f, 1.0f);
+            glBegin(GL_QUADS);
+            glColor3f(colors[face][0], colors[face][1], colors[face][2]);
 
-        glColor3f(1.0f, 1.0f, 0.0f);
-        glVertex3f(1.0f, -1.0f, -1.0f);
-        glVertex3f(-1.0f, -1.0f, -1.0f);
-        glVertex3f(-1.0f, 1.0f, -1.0f);
-        glVertex3f(1.0f, 1.0f, -1.0f);
+            for (int vert = 0; vert < 4; vert++) {
+                glVertex3fv(vertsZ[facesZ[face][vert]]);
+            }
+            glEnd();
 
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glVertex3f(-1.0f, 1.0f, 1.0f);
-        glVertex3f(-1.0f, 1.0f, -1.0f);
-        glVertex3f(-1.0f, -1.0f, -1.0f);
-        glVertex3f(-1.0f, -1.0f, 1.0f);
+        }
+    }
 
-        glColor3f(1.0f, 0.0f, 1.0f);
-        glVertex3f(1.0f, 1.0f, -1.0f);
-        glVertex3f(1.0f, 1.0f, 1.0f);
-        glVertex3f(1.0f, -1.0f, 1.0f);
-        glVertex3f(1.0f, -1.0f, -1.0f);
-        glEnd();
+    public void destroy() {
     }
 }
