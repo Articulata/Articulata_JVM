@@ -1,4 +1,4 @@
-package com.articulatagame.player;
+package com.articulatagame.object.player;
 
 
 public class ClientPlayer extends Player {

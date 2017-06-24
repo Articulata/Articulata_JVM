@@ -1,10 +1,10 @@
-package com.articulatagame.player;
+package com.articulatagame.object.player;
 
 import com.articulatagame.network.ServerConnection;
 
 public class ServerPlayer extends Player {
-    private final IPlayer clientPlayer;
     public final ServerConnection connection;
+    private final IPlayer clientPlayer;
 
     public ServerPlayer(IPlayer clientPlayer, ServerConnection connection) {
         super(clientPlayer.getName());

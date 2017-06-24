@@ -1,12 +1,12 @@
 package com.articulatagame;
 
-import java.io.IOException;
-
 import com.articulatagame.network.ClientListener;
 import com.articulatagame.network.NetworkUtil;
 import com.articulatagame.network.receiver.IReceiver;
-import com.articulatagame.player.ClientPlayer;
+import com.articulatagame.object.player.ClientPlayer;
 import com.esotericsoftware.kryonet.Client;
+
+import java.io.IOException;
 
 public class ArticulataClient {
     public static ArticulataClient INSTANCE;

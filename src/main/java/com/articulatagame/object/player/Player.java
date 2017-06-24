@@ -1,13 +1,14 @@
-package com.articulatagame.player;
+package com.articulatagame.object.player;
 
+import com.articulatagame.object.GameObject;
+import com.articulatagame.object.rendering.ModelCube;
 import com.articulatagame.util.Location;
 
-public abstract class Player implements IPlayer {
+public abstract class Player extends GameObject implements IPlayer {
     public final String name;
 
-    protected Location location;
-
     public Player(String name) {
+        super(new ModelCube());
         this.name = name;
     }
 
@@ -17,10 +18,8 @@ public abstract class Player implements IPlayer {
     }
 
     public void setLocation(Location location) {
-        this.location = location;
+        super.location = location;
         System.out.println("Setting location: " + location);
-
-
     }
 
 }

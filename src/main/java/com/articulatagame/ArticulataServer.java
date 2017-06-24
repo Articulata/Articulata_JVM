@@ -1,25 +1,27 @@
 package com.articulatagame;
 
+import com.articulatagame.network.NetworkServer;
+import com.articulatagame.network.NetworkUtil;
+import com.articulatagame.network.ServerListener;
+import com.articulatagame.network.receiver.ServerReceiver;
+import com.articulatagame.object.player.ServerPlayer;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.articulatagame.network.NetworkServer;
-import com.articulatagame.network.NetworkUtil;
-import com.articulatagame.network.ServerListener;
-import com.articulatagame.network.receiver.ServerReceiver;
-import com.articulatagame.player.ServerPlayer;
-
 public class ArticulataServer {
     public static final ArticulataServer INSTANCE = new ArticulataServer();
-
-    private NetworkServer networkServer;
-    private List<ServerPlayer> players = new CopyOnWriteArrayList<>();
     public final ServerReceiver receiver = new ServerReceiver();
     public final Queue<Runnable> tasks = new ConcurrentLinkedQueue<>();
+    private NetworkServer networkServer;
+    private List<ServerPlayer> players = new CopyOnWriteArrayList<>();
 
+    public static void main(String[] args) {
+        INSTANCE.start();
+    }
 
     private void start() {
         networkServer = new NetworkServer(this);
@@ -48,10 +50,5 @@ public class ArticulataServer {
     public void sendChatToAll(String message) {
         players.forEach(
             serverPlayer -> serverPlayer.connection.getReceiver().receiveChat(message));
-    }
-
-
-    public static void main(String[] args) {
-        INSTANCE.start();
     }
 }

@@ -3,8 +3,8 @@ package com.articulatagame.network;
 
 import com.articulatagame.ArticulataServer;
 import com.articulatagame.network.receiver.IReceiver;
-import com.articulatagame.player.IPlayer;
-import com.articulatagame.player.ServerPlayer;
+import com.articulatagame.object.player.IPlayer;
+import com.articulatagame.object.player.ServerPlayer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;

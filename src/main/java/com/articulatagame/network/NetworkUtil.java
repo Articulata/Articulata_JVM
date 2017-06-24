@@ -1,12 +1,12 @@
 package com.articulatagame.network;
 
-import java.util.Arrays;
-import java.util.UUID;
-
 import com.articulatagame.network.receiver.IReceiver;
-import com.articulatagame.player.IPlayer;
+import com.articulatagame.object.player.IPlayer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
+
+import java.util.Arrays;
+import java.util.UUID;
 
 public class NetworkUtil {
     public static final int PORT_NUMBER = 42666;

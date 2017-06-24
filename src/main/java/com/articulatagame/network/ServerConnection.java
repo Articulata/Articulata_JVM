@@ -1,7 +1,7 @@
 package com.articulatagame.network;
 
 import com.articulatagame.network.receiver.IReceiver;
-import com.articulatagame.player.IPlayer;
+import com.articulatagame.object.player.IPlayer;
 import com.esotericsoftware.kryonet.Connection;
 
 public class ServerConnection extends Connection {
