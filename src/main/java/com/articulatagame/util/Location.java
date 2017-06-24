@@ -19,6 +19,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return String.format("Location {{%d, %d, %d", x, y, z);
+        return String.format("Location (%d, %d, %d)", x, y, z);
     }
 }

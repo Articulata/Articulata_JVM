@@ -1,11 +1,11 @@
 package com.articulatagame.gamestate;
 
+import java.util.ArrayList;
+
 import com.articulatagame.GameState;
 import com.articulatagame.object.GameObject;
 import com.articulatagame.object.player.ClientPlayer;
 import com.articulatagame.util.Location;
-
-import java.util.ArrayList;
 
 public class GameStateMain extends GameState {
 
@@ -27,6 +27,16 @@ public class GameStateMain extends GameState {
 
     @Override
     public void update() {
+
+    }
+
+    @Override
+    public void onLoad() {
+
+    }
+
+    @Override
+    public void onUnload() {
 
     }
 }
